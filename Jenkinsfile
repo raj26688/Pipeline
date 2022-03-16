@@ -1,29 +1,27 @@
-pipeline{
-	agent none
-	stages {
-		stage("Stage 1") {
-			agent {
-				label 'Group1'
-			}
-			steps {
-				echo "welcome to melcowe"
-			}
-		}
-		stage("Stage 2") {
-			agent {
-				label 'Group1'
-			}
-			steps {
-				echo "Sleep please"
-			}
-		}
-		stage("Hyderabad") {
-			agent {
-				label 'MasterGroup'
-			}
-			steps {
-				echo "reach you soon"
-			}
-		}	
+pipeline	{
+	agent	{
+		label 'MasterGroup'
 	}
+	stages	{
+		stage ("clone GOL - Githib Central Repo") {
+			steps	{
+				git 'https://github.com/wakaleo/game-of-life.git'
+			}
+		}
+		stage ("Build GOL - MAVEN") {
+			steps	{
+				sh 'mvn clean package'
+			}
+		}
+		stage ("Archive articrafts") {
+			steps	{
+				archiveArtifacts artifacts: 'gameoflife-web/target/*war', followSymlinks: false
+			}
+		}
+		stage ("Junit Test Reports") {
+			steps	{
+				junit 'gameoflife-web/target/surefire-reports/*.xml
+			}
+		}
+	}	
 }
