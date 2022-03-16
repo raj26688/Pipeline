@@ -20,7 +20,7 @@ pipeline	{
 		}
 		stage ("Junit Test Reports") {
 			steps	{
-				junit 'gameoflife-web/target/surefire-reports/*.xml
+				junit 'gameoflife-web/target/surefire-reports/*.xml'
 			}
 		}
 	}	
