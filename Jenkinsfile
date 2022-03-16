@@ -2,6 +2,9 @@ pipeline	{
 	agent	{
 		label 'MasterGroup'
 	}
+	triggers {
+		pollSCM '* * * * *'
+	}
 	stages	{
 		stage ("clone GOL - Githib Central Repo") {
 			steps	{
@@ -20,7 +23,7 @@ pipeline	{
 		}
 		stage ("Junit Test Reports") {
 			steps	{
-				junit 'gameoflife-web/target/surefire-reports/*.xml'
+				junit 'gameoflife-web/target/surefire-reports/*.xml
 			}
 		}
 	}	
